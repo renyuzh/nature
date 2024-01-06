@@ -1,0 +1,177 @@
+<!--pages/pdetail/pdetail.wxml-->
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="cu-card case">
+  <view class='cu-item shadow'>
+    <view class='image'>
+      <image src="{{project.PPoster}}" mode="widthFix"></image>
+      <view class="cu-tag bg-green">{{project.PStatus}}</view>
+      <view class="cu-bar bg-shadeBottom">
+        <text class="text-cut">{{project.PTitle}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='cu-card article dynamic' wx:if="{{project.PIntro.length > 0}}">
+  <view class="cu-item shadow">
+    <view class='title text-shadow text-green'>项目介绍</view>
+    <view class="text-content">
+      <text>{{project.PIntro}}</text>
+    </view>
+  </view>
+</view>
+
+<view class='cu-card article dynamic'>
+  <view class="cu-item shadow">
+    <view class='title text-shadow text-green'>项目内容</view>
+    <view class="text-content">
+      项目编号： {{project.PSN}}
+    </view>
+    <view class='text-content'>
+      时间： {{project.PStartTime}} 至 {{project.PEndTime}}
+    </view>
+    <view class='text-content'>
+      地点： {{project.PLocation}}
+    </view>
+    <view class='text-content'>
+    招募队伍数量： {{project.PTeamLimit}}
+    </view>
+  </view>
+</view>
+
+  <view class='cu-card article dynamic' wx:if="{{ptags[0].length>1}}">
+  <view class="cu-item shadow">
+  <view class='title text-shadow text-green'>分类标签</view>
+  <view class="text-content">
+    <view class='cu-tag radius bg-olive' wx:for="{{ptags}}">{{item}}</view>
+  </view>
+  </view>
+  </view> 
+
+<block wx:if="{{project.PCategory == '团队'}}">
+<view class="cu-bar bg-white solid-bottom margin-top">
+<view class='action'>
+<text class='cuIcon-title text-green'></text> <text class='text-green'>项目队伍</text>
+<text class='margin-left text-grey text-sm'>{{teams.length}} 队</text>
+</view>
+<view class='action' wx:if="{{isAdmin}}">
+<button class='cu-btn bg-orange shadow' bindtap="navToTForm">创建队伍</button>
+</view>
+</view>
+
+<view class='cu-list menu sm-border'>
+
+<view class="cu-item" wx:for="{{teams}}" wx:for-index="tindex" wx:for-item="team">
+<view class='content' bindtap='navToTdetail' data-tid="{{team.TID}}">
+<image src='{{team.TPoster}}' class='cu-avatar radius'></image>
+<text class='text-black'>{{team.TName}}</text>
+</view>
+
+<view class='action' wx:if="{{team.TIsApprove=='Yes'}}">
+<text class='text-grey text-sm'>{{team.TMemberCount}}/{{team.TMemberLimit}}人 </text>
+<view class="cu-tag radius bg-green">{{team.TStatus}}</view>
+</view>
+
+<view class='action' wx:if="{{team.TIsApprove=='No' && isAdmin}}">
+<button class='cu-btn lines-red sm' bindtap="denyCreateTeam" data-dtid="{{team.TID}}">拒绝</button>
+<button class='cu-btn lines-green sm margin-left' bindtap="approveCreateTeam" data-atid="{{team.TID}}">批准</button>
+</view>
+
+</view>
+
+</view>
+</block>
+
+<block wx:if="{{project.PCategory == '单人'}}">
+  <view class="cu-bar bg-white solid-bottom margin-top">
+  <view class='action'>
+  <text class='cuIcon-title text-green'></text> <text class='text-green'>项目成员</text>
+  <text class='margin-left text-grey text-sm'>{{members.length}} 人</text>
+  </view>
+  <view class='action' wx:if="{{userCanJoinProject}}">
+  <button class='cu-btn bg-green shadow' bindtap="JoinProject">我要加入</button>
+  </view>
+  </view>
+
+  <view class='cu-list menu sm-border'>
+
+  <view class='cu-item' wx:for="{{members}}" wx:for-index="midx" wx:for-item="member">
+
+  <view class='content' bindtap='navToMemberOList' data-uid="{{member.UID}}" data-tid="{{member.TID}}" data-pid="{{member.PID}}">
+  <image src='{{member.UAvatar}}' class='cu-avatar round'>
+  </image>
+  <text class='text-black'>{{member.UserName}}</text>
+  <text class="text-green text-sm" wx:if="{{member.PTMIsApprove == 'Yes'}}"> {{member.PTMRole}}</text>
+  <text class="text-grey text-sm" wx:if="{{member.PTMIsApprove == 'No'}}"> 待审核</text>
+  </view>
+  <view class='action' wx:if="{{member.PTMIsApprove == 'Yes'}}">
+  <text class='text-grey text-sm'>{{member.PTMObserveCount}} 观测 </text>
+  </view>
+  <view class='action' wx:if="{{member.PTMIsApprove == 'No' && isAdmin}}">
+  <button class='cu-btn lines-red sm' bindtap="denyMember" data-dptmid="{{member.PTMID}}">拒绝</button>
+  <button class='cu-btn lines-green sm margin-left' bindtap="approveMember" data-aptmid="{{member.PTMID}}">批准</button>
+  </view>
+
+  </view>
+
+  </view>
+
+</block>
+
+
+
+
+<view class='cu-bar bg-white solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-green'></text> <text class='text-green'>数据资源</text>
+</view>
+<view class='action' wx:if="{{userCanObserve}}">
+<button class='cu-btn bg-blue shadow' bindtap="navToTObserve">新观测</button>
+</view>
+</view>
+
+<view class='cu-list grid col-3 no-border margin-bottom'>
+<view class='cu-item' bindtap="navToRank">
+<view class='cuIcon-upstagefill text-cyan'></view>
+<text>排行榜</text>
+</view>
+<view class='cu-item' bindtap="navToOList">
+<view class='cuIcon-discoverfill text-purple'></view>
+<text>观测记录</text>
+</view>
+<view class='cu-item' bindtap="navToPhoto">
+<view class='cuIcon-picfill text-yellow'></view>
+<text>图像流</text>
+</view>
+</view>
+
+
+<view class='cu-bar bg-white solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-green'></text> <text class='text-green'>统计信息</text>
+</view>
+<view class='action'>
+<text class="text-sm text-grey">数据更新于 {{statisUpdateTime}}</text>
+</view>
+</view>
+
+<view class='bg-white padding grid col-4 text-center'>
+<view>
+<view><text class='text-xxl text-bold text-orange'>{{project.PObserveCount}}</text></view>
+<view><text>观测</text></view>
+</view>
+<view>
+<view><text class='text-xxl text-bold  text-green'>{{project.PSpeciesCount}}</text></view>
+<view><text>物种</text></view>
+</view>
+<view>
+<view><text class='text-xxl text-bold  text-brown'>{{project.PIdentCount}}</text></view>
+<view><text>鉴定</text></view>
+</view>
+<view>
+<view><text class='text-xxl text-bold text-yellow'>{{project.PImageCount}}</text></view>
+<view><text>图像</text></view>
+</view>
+</view>
+

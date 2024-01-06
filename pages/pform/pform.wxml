@@ -1,0 +1,118 @@
+<!--pages/pform/pform.wxml-->
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="cu-bar margin-top shadow bg-white">
+<view class="action sub-title">
+<text class="text-xl text-bold text-green">编辑项目信息</text>
+<text class="bg-green" style="width:6rem"></text>
+</view>
+</view>
+
+<form>
+
+<view class="cu-form-group margin-top">
+<view class="title">编号</view>
+<input placeholder="请输入项目编号，字母、数字组合"  bindinput="inputedit" data-obj="form" data-item="PSN" value="{{form.PSN}}"></input>
+</view>
+<view class="cu-form-group">
+<view class="title">名称</view>
+<input placeholder="请输入项目名称" bindinput="inputedit" data-obj="form" data-item="PTitle" value="{{form.PTitle}}"></input>
+</view>
+
+<view class="cu-form-group" wx:if="{{false}}">
+<view class="title">队伍限制</view>
+<input type="number" placeholder="请输入项目招募队伍限制" bindinput="inputedit" data-obj="form" data-item="PTeamLimit" value="{{form.PTeamLimit}}"></input>
+</view>
+
+<view class="cu-form-group">
+<view class="title">起始时间</view>
+<picker mode="date" value="{{form.PStartTime}}" bindchange="startDateChange">
+<view class="picker">
+{{form.PStartTime}}
+</view>
+</picker>
+</view>
+<view class="cu-form-group">
+<view class="title">结束时间</view>
+<picker mode="date" value="{{form.PEndTime}}" bindchange="endDateChange">
+<view class="picker">
+{{form.PEndTime}}
+</view>
+</picker>
+</view>
+
+<view class="cu-form-group">
+<view class="title">活动地点</view>
+<input placeholder="请输入项目活动地点" bindinput="inputedit" data-obj="form" data-item="PLocation" value="{{form.PLocation}}"></input>
+</view>
+
+<view class="cu-form-group" wx:if="{{false}}">
+<view class="title">项目类型</view>
+<picker bindchange="PTypeChange" value="{{ptindex}}" range="{{ptlist}}">
+  <view class="picker">
+    {{ptlist[ptindex]}}
+  </view>
+</picker>
+</view>
+
+<view class="cu-form-group" wx:if="{{false}}">
+<view class="title">项目状态</view>
+<picker bindchange="PStatusChange" value="{{psindex}}" range="{{pslist}}">
+  <view class="picker">
+    {{pslist[psindex]}}
+  </view>
+</picker>
+</view>
+
+<view class="cu-form-group">
+<view class="title">关键词</view>
+<input placeholder="请输入项目关键词"  bindinput="inputedit" data-obj="form" data-item="PTag" value="{{form.PTag}}"></input>
+</view>
+<view class="cu-form-group align-start">
+<view class="title">介绍</view>
+<textarea maxlength="-1" placeholder="请输入项目介绍"  bindinput="inputedit" data-obj="form" data-item="PIntro" value="{{form.PIntro}}"></textarea>
+</view>
+
+<view class="cu-form-group margin-top">
+<view class="title">项目类别</view>
+<radio-group bindchange="PCateChange">
+<radio value="单人" style="transform:scale(0.7)"></radio><text class="margin-right-sm">单人</text>
+<radio checked value="团队" style="transform:scale(0.7)"></radio><text>团队</text>
+</radio-group>
+</view>
+<view class="cu-form-group" wx:if="{{form.PCategory == '团队'}}">
+		<view class="title">同一成员可以加入多个不同队伍</view>
+		<switch checked="{{joinTeamsStatus}}" bindchange="joinTeamsStatusChange"></switch>
+	</view>
+<view class="cu-form-group">
+		<view class="title">成员加入需要审核</view>
+		<switch checked="{{previewswith}}" bindchange="PReviewChange"></switch>
+	</view>
+  
+
+
+<view class="cu-bar bg-white margin-top">
+<view class="action">
+项目海报
+</view>
+</view>
+<view class="cu-form-group">
+<view class="grid col-4 grid-square flex-sub">
+<view class="bg-img" wx:for="{{imgList}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+<image src="{{imgList[index]}}" mode="aspectFill"></image>
+<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+<text class="cuIcon-close"></text>
+</view>
+</view>
+<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
+<text class="cuIcon-cameraadd"></text>
+</view>
+</view>
+</view>
+
+</form>
+
+<view class="padding flex flex-direction">
+<button class="cu-btn bg-green shadow-blur" bindtap="save">保 存</button>
+<button class="cu-btn bg-grey margin-top shadow-blur" bindtap="cancel">取 消</button>
+</view>

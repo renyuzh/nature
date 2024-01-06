@@ -1,0 +1,134 @@
+<!--pages/olist/olist.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="cu-bar bg-blue solid-bottom" hidden>
+  <view class='action'>
+    <text class='cuIcon-titles text-white'></text> 分布地图
+  </view>
+</view>
+
+<view class="margin-top-sm" hidden>
+<map id="map" longitude="113.324520" latitude="23.099994" scale="14" 
+controls="{{controls}}" bindcontroltap="controltap" 
+markers="{{markers}}" bindmarkertap="markertap" 
+polyline="{{polyline}}" bindregionchange="regionchange" 
+show-location style="width: 100%; height: 600rpx;"></map>
+</view>
+  
+
+<view class="cu-bar bg-blue solid-bottom">
+  <view class='action'>
+    <text class='cuIcon-titles text-white'></text> 观测记录
+    <text class="margin-left text-white text-sm">{{ObserveCount}}</text>
+  </view>
+  <view class='action'>
+    <text bindtap="showModal" data-target="filterModal"><text class="cuIcon-filter"></text>筛选</text>
+  </view>
+</view>
+
+<view class="cu-card article no-card solid-bottom margin-top-sm solic-top" wx:key="OID" wx:for="{{observes}}" wx:for-item="observe">
+  <view class="cu-item shadow">
+    <view class="title" bindtap="navToOdetail" data-oid="{{observe.OID}}">
+      <view class="text-cut"><view class="cu-tag bg-brown shadow sm round" wx:if="{{observe.OISysRole=='Expert' && observe.OSTaxaLevel!=''}}">专家鉴定</view> 
+<block wx:if="{{observe.OSTaxaLevel=='Species' || observe.OSTaxaLevel==''}}">
+ {{observe.OSNameZh}} {{observe.OSNameLa}} 
+</block>
+<block wx:if="{{observe.OSTaxaLevel=='Genus'}}">
+ {{observe.OSGenusZh}} {{observe.OSGenusLa}}
+</block>
+<block wx:if="{{observe.OSTaxaLevel=='Family'}}">
+ {{observe.OSFamilyZh}} {{observe.OSFamilyLa}}
+</block>
+<block wx:if="{{observe.OSTaxaLevel=='Order'}}">
+ {{observe.OSOrderZh}} {{observe.OSOrderLa}}
+</block>
+<block wx:if="{{observe.OSTaxaLevel=='Class'}}">
+ {{observe.OSClassZh}} {{observe.OSClassLa}}
+</block>
+<block wx:if="{{observe.OSTaxaLevel=='Phylum'}}">
+ {{observe.OSPhylumZh}} {{observe.OSPhylumLa}}
+</block>
+<block wx:if="{{observe.OSTaxaLevel=='Kingdom'}}">
+ {{observe.OSKingdomZh}} {{observe.OSKingdomLa}}
+</block>
+<text class="text-sm text-grey"> {{observe.OSRemark}} {{observe.ORemark}}</text> 
+      <block wx:if="{{observe.OSTaxaLevel =='' && observe.OSNameZh.length<1 && observe.OSNameLa.length<1 && observe.OSRemark.length<1 && observe.ORemark<1}}"><text class="text-red">未知</text></block>
+      </view>
+    </view>
+
+    <view class="content" bindtap="navToOdetail" data-oid="{{observe.OID}}">
+      <image wx:if="{{observe.OPoster != ''}}" src="{{observe.OPoster}}" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content text-cut">
+        <view class="text-sm"><text class="cuIcon-myfill"></text> <text class="text-black"> {{observe.UserName}}</text></view>
+        <view class="text-sm"><text class="cuIcon-locationfill"></text> <text class="text-black"> {{observe.OLocation}}</text></view>
+        <view class="text-sm"><text class="cuIcon-timefill"></text> <text class="text-black"> {{observe.ObserveDatetime}}</text></view>
+        </view>
+        <view class="text-grey text-sm">图像 {{observe.OImageCount}} 鉴定 {{observe.OIdentCount}} 评论 {{observe.OCommentCount}}</view>
+      </view>
+    </view>
+
+    <view class="content margin-top">
+    <text class="text-blue"  bindtap="editObserve" data-item="{{observe}}"><text class="cuIcon-edit"></text> 编辑</text>
+    <text class="text-red margin-left-xl" bindtap="deleteObserve" data-item="{{observe}}"><text class="cuIcon-delete"></text> 删除</text>
+    </view>
+
+  </view>
+
+</view>
+
+<view class="cu-modal bottom-modal {{modalName=='filterModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white">
+      <view class="action text-green" bindtap="filterObserve">确定</view>
+      <view class="action text-blue" bindtap="hideModal">取消</view>
+    </view>
+    <view class="padding-xl">
+      <view class="text-left margin-bottom-sm">时间段</view>
+      <view class="cu-form-group">
+        <view class="title">From</view>
+        <picker mode="date" value="{{fromdate}}" bindchange="FromDateChange">
+          <view class="picker">
+            {{fromdate}}
+          </view>
+        </picker>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">To</view>
+        <picker mode="date" value="{{todate}}" bindchange="ToDateChange">
+          <view class="picker">
+            {{todate}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">类群</view>
+      <view class="cu-form-group">
+        <view class="title">选择类群</view>
+        <picker bindchange="TaxaGroupChange" value="{{tgindex}}" range="{{taxagroups}}">
+          <view class="picker">
+            {{taxagroups[tgindex]}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">所属项目</view>
+      <view class="cu-form-group">
+        <view class="title">选择项目</view>
+        <picker bindchange="ProjectGroupChange" value="{{proindex}}" range="{{projectgroups}}" range-key="PTitle">
+          <view class="picker">
+            {{projectgroups[proindex]['PTitle']}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">所属队伍</view>
+      <view class="cu-form-group">
+        <view class="title">选择队伍</view>
+        <picker bindchange="TeamGroupChange" value="{{teamindex}}" range="{{teamgroups}}" range-key="TName">
+          <view class="picker">
+            {{teamgroups[teamindex]['TName']}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+</view>
+

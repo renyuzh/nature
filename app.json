@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/start/start",
+    "pages/myproject/myproject",
+    "pages/myteam/myteam",
+    "pages/myident/myident",
+    "pages/mycomment/mycomment",
+    "pages/register/register",
+    "pages/rank/rank",
+    "pages/photo/photo",
+    "pages/olist/olist",
+    "pages/odetail/odetail",
+    "pages/project/project",
+    "pages/oform/oform",
+    "pages/observe/observe",
+    "pages/about/about",
+    "pages/mine/mine",
+    "pages/search/search",
+    "pages/login/login",
+    "pages/tform/tform",
+    "pages/tdetail/tdetail",
+    "pages/pdetail/pdetail",
+    "pages/pform/pform",
+    "pages/expertidents/expertidents",
+    "pages/privacypolicy/privacypolicy",
+    "pages/uinfoset/uinfoset",
+    "pages/verycode/verycode",
+    "pages/webviewpage/webviewpage"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#39b54a",
+    "navigationBarTitleText": "i自然探索",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取观测位置地理数据自动定位"
+    }
+  },
+  "requiredPrivateInfos":[
+    "chooseLocation",
+    "getLocation"
+  ],
+  "sitemapLocation": "sitemap21.json"
+}

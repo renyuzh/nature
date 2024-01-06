@@ -1,0 +1,26 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="padding">
+  <view><text class="text-bold text-black text-xl">手机验证码登录</text></view>
+  <view><text class="text-gray">输入您的手机号，进行验证码登录</text></view>
+</view>
+
+<view class="padding">
+  <view class="cu-form-group">
+		<view class="title">手机号</view>
+		<input placeholder="请输入您的中国大陆手机号" bindinput="inputedit" data-obj="form" data-item="PhoneNUM" value="{{form.PhoneNUM}}"></input>
+  </view>
+
+  <view class="cu-form-group">
+		<view class="title">验证码</view>
+    <input placeholder="短信验证码" bindinput="inputedit" data-obj="form" data-item="VeryCode" value="{{form.VeryCode}}"></input>
+    <view class="cu-capsule radius shadow">
+      <view class="cu-tag bg-blue" bindtap="sendVeryCode" wx:if="{{notSend}}">发送验证码</view>
+    </view>
+	</view>
+  
+</view>
+
+<view class="padding">
+  <button class="cu-btn bg-blue block text-bold round"  bindtap="login">登 录</button>
+</view>

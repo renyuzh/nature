@@ -1,0 +1,14 @@
+<!--pages/register/register.wxml-->
+<cu-custom isBack="{{true}}" style="color:#fff;"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+<view  class="login-backgroud">
+  <view class="start-banner-logo"><image src="https://explore.iconserve.org.cn/images/3.png"></image></view>
+</view>
+
+<view class='login-form'>
+<input type="text" placeholder="必填*用户名" class="login-input" bindinput="inputedit" data-obj="form" data-item="username" value="{{form.username}}" />
+<input type="text" placeholder="必填*手机号" class="margin-top login-input"  bindinput="inputedit" data-obj="form" data-item="telephone" value="{{form.telephone}}" />
+<input type="text" placeholder="必填*邮箱" class="margin-top login-input"  bindinput="inputedit" data-obj="form" data-item="email" value="{{form.email}}" />
+<input type="password" placeholder="必填*密码" class="margin-top login-input" bindinput="inputedit" data-obj="form" data-item="password" value="{{form.password}}" />
+<input type="password" placeholder="必填*确认密码" class="margin-top login-input"  bindinput="inputedit" data-obj="form" data-item="confirmpwd" value="{{form.confirmpwd}}" />
+<button class='cu-btn margin-top lg shadow-blur bg-black login-btn' bindtap="GetWXUserinfo">注 册</button>
+</view>

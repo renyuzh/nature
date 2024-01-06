@@ -1,0 +1,5 @@
+/* pages/photo/photo.wxss */
+
+page{
+  background-color: #fff;
+}

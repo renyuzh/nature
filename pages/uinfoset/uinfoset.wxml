@@ -1,0 +1,36 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<block wx:if="{{curInfo == 'pnumber'}}">
+<view class="padding">
+  <view><text class="text-bold text-black text-xl">重置手机号码</text></view>
+  <view class="text-gray">当前手机号：<text>{{userdata.UPhone}}</text></view>
+</view>
+<view class="padding">
+  <view class="cu-form-group">
+    <view class="title">新手机号</view>
+    <input placeholder="请输入您的新手机号" bindinput="inputedit" data-obj="form" data-item="PhoneNUM" value="{{form.PhoneNUM}}"></input>
+  </view>
+</view>
+<view class="padding">
+  <button class="cu-btn bg-blue block round"  bindtap="resetPhoneNUM">重 置</button>
+</view>
+</block>
+
+<block wx:if="{{curInfo == 'pwd'}}">
+<view class="padding">
+  <view><text class="text-bold text-black text-xl">重置登录密码</text></view>
+</view>
+<view class="padding">
+  <view class="cu-form-group">
+		<view class="title">新密码</view>
+		<input type="password" placeholder="请输入新密码" bindinput="inputedit" data-obj="form" data-item="password" value="{{form.password}}"></input>
+  </view>
+  <view class="cu-form-group">
+		<view class="title">确认密码</view>
+		<input type="password" placeholder="请再次输入新密码" bindinput="inputedit" data-obj="form" data-item="confirmpwd" value="{{form.confirmpwd}}"></input>
+  </view>
+</view>
+<view class="padding">
+  <button class="cu-btn bg-blue block round"  bindtap="resetUserPwd">重 置</button>
+</view>
+</block>

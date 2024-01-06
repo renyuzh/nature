@@ -1,0 +1,28 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">用户协议与隐私政策</view></cu-custom>
+
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-center margin-bottom text-lg text-black'>i自然探索用户协议与隐私政策</view>
+  <view class='text-content'>
+    <view>在您开启小探索、大发现之前，首先，您需要了解：</view>
+    <view class='margin-top-sm'>1.i自然探索小程序由深圳爱栖自然生态科技有限公司开发，仅用于记录自然观察相关的图像与文字（例如动植物、自然环境等），不得用于其他用途。</view>
+    <view class='margin-top-sm'>2.您理解并同意在使用过程中小程序会调用拍照功能以保证核心功能正常使用、存储照片至您的移动设备中，以及获取您的地理位置信息。</view>
+    <view class='margin-top-sm'>3.为推动环保公益事业的发展，您理解并同意将采集的图片、视频等影像资料、记录的物种信息、文字、定位及运动轨迹等数据授权深圳爱栖自然生态科技有限公司用于非商业的公益活动中而无需您的再次同意。</view>
+    <view class='margin-top-sm'>4.您在使用中，应当自觉遵守国家的相关法律法规政策，不得上传、下载、复制、发布或传播法律、法规
+      和政策禁止的内容（例如危害国家安全，泄露国家机密，破坏国家统一的内容；散步淫秽、色情、赌博等的内容）、干扰小程序正常运营的内容、以及侵犯其他用户或第三方合法权益的内容。
+      如果违反，本小程序将视情况采取预先警示、拒绝发布、删除内容、短期禁止发言或永久关闭账号等管理措施，对涉嫌违法犯罪的内容将保存在案、并在接受有关政府部门调查时如实报告。</view>
+    <view class='margin-top-sm'>5.小程序的任何内容都不得作为您和/或他人进行各类民商事活动的任何依据，否则因此造成的一切风险和责任均应当由您承担。</view>
+    <view class='margin-top-sm'>6.您理解并同意，i自然探索小程序仅为用户提供信息分享、传送及获取的平台，用户必须为自己注册账号下的一切行为负责，
+      包括用户所传送的任何内容以及由此产生的任何后果。所以，请您妥善保管您的设备和个人信息，对于因密码泄露、个人信息泄露、设备丢失等所致的损失由您自行承担。</view>
+    <view class='margin-top-sm'>7.我们尊重并保护用户隐私，您在注册成为i自然探索小程序用户或以其他任何方式使用时，我们将按照《爱栖i自然探索小程序隐私政策》收集、使用、存储您的个人信息。</view>
+    <view class='margin-top-sm'>8.用户在i自然探索小程序产品中或通过i自然探索小程序服务所传送、发布的任何内容并不反映或代表、也不得被视为反映或代表深圳爱栖自然生态科技有限公司的观点、立场或规章制度。</view>
+  </view>
+</view>
+
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-content'>
+    <view class="text-black">
+      使用i自然探索小程序服务即表示您充分阅读、理解并接受
+      <text class='page-link' bindtap='navToUserAgreement'>《用户协议》</text>和
+      <text class='page-link' bindtap='navToPrivacyPolicy'>《隐私政策》</text>的全部内容。</view>
+  </view>
+</view>

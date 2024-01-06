@@ -1,0 +1,49 @@
+/* pages/register/register.wxss */
+page{
+  height: 100%;
+  background-color: #8ABB91;
+}
+.container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.login-backgroud{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin-top:0;
+  box-sizing: border-box;
+}
+.start-banner-logo{
+  width: 70%;
+  margin-bottom: 60rpx;
+}
+.start-banner-logo image{
+  border-radius: 50%;
+}
+.login-input{
+  background-color: #fff;
+  width: 80%;
+  height: 60rpx;
+  border-radius: 30rpx;
+  padding: 10rpx 30rpx;
+}
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.login-btn{
+  margin-top: 80rpx;
+  width:80%;
+  border-radius: 30rpx;
+  font-weight: bold;
+}

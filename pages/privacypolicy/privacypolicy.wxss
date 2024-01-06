@@ -1,0 +1,6 @@
+/* pages/privacypolicy/privacypolicy.wxss */
+.page-link{
+  font-weight: bold;
+  color: dodgerblue;
+  text-decoration:underline;
+}

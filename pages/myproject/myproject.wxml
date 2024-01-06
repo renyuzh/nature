@@ -1,0 +1,19 @@
+<!--pages/myproject/myproject.wxml-->
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class='cu-bar bg-green solid-bottom'>
+<view class='action'>
+<text class='cuIcon-titles text-white'></text> 我的项目
+</view>
+</view>
+
+<view class='cu-list menu'>
+
+  <view class='cu-item arrow solid-bottom' bindtap="navToPdetail" wx:for="{{myprojects}}" wx:key="PID" wx:for-item="myproject" data-pid="{{myproject.PID}}">
+    <view class='content'>
+    <text class='text-green'>{{myproject.PSN}} </text> 
+    <text class="text-bold">{{myproject.PTitle}}</text>
+    </view>
+  </view>
+
+</view>

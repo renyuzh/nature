@@ -1,0 +1,61 @@
+<!--pages/rank/rank.wxml-->
+<cu-custom bgColor="bg-cyan" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="padding">
+<view class="text-center">
+<text class="cuIcon-upstagefill text-white text-xl"></text> <text class="margin-left-sm text-white text-lg text-bold">排行榜</text>
+</view>
+</view>
+
+<view class="rank-title"><text>最多观测</text></view>
+
+<view class="padding">
+  <view class="cu-bar bg-cyan rank-card-one">
+    <view class="action">
+      <text class="text-white text-xl text-bold margin-right">1</text> 
+      <view class="cu-avatar sm round margin-right-sm" style="background-image:url({{topobserve.img}});"></view>
+      <text class="text-white text-xl text-bold margin-right">{{topobserve.title}}</text> 
+
+    </view>
+    <view class="action">
+      <text class="text-white text-xl text-bold">{{topobserve.count}}</text>
+    </view>
+  </view>
+  <view class="cu-bar bg-white margin-top-sm rank-card" wx:for="{{observes}}" wx:for-item="observe" wx:for-index="oidx">
+    <view class="action">
+      <text class="text-xl text-bold margin-right">{{oidx+2}}</text> 
+      <view class="cu-avatar sm round margin-right-sm" style="background-image:url({{observe.img}});"></view>
+      <text class="text-xl text-bold margin-right">{{observe.title}}</text> 
+    </view>
+    <view class="action">
+      <text class="text-xl text-bold">{{observe.count}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="rank-title"><text>最多物种</text></view>
+
+<view class="padding">
+  <view class="cu-bar bg-cyan rank-card-one">
+    <view class="action">
+      <text class="text-white text-xl text-bold margin-right">1</text> 
+      <view class="cu-avatar sm round margin-right-sm" style="background-image:url({{topspecies.img}});"></view>
+      <text class="text-white text-xl text-bold margin-right">{{topspecies.title}}</text> 
+
+    </view>
+    <view class="action">
+      <text class="text-white text-xl text-bold">{{topspecies.count}}</text>
+    </view>
+  </view>
+  <view class="cu-bar bg-white margin-top-sm rank-card" wx:for="{{species}}" wx:for-item="sp" wx:for-index="sidx">
+    <view class="action">
+      <text class="text-xl text-bold margin-right">{{sidx+2}}</text> 
+      <view class="cu-avatar sm round margin-right-sm" style="background-image:url({{sp.img}});"></view>
+      <text class="text-xl text-bold margin-right">{{sp.title}}</text> 
+
+    </view>
+    <view class="action">
+      <text class="text-xl text-bold">{{sp.count}}</text>
+    </view>
+  </view>
+</view>

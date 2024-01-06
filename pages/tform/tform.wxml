@@ -1,0 +1,78 @@
+<!--pages/tform/tform.wxml-->
+<cu-custom bgColor="bg-gradual-orange" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="cu-bar margin-top shadow bg-white">
+<view class="action sub-title">
+<text class="text-xl text-bold text-orange">编辑队伍信息</text>
+<text class="bg-orange" style="width:6rem"></text>
+</view>
+</view>
+
+<form>
+
+<view class="cu-form-group margin-top">
+<view class="title">编号</view>
+<input placeholder="请输入队伍编号，字母、数字组合"  bindinput="inputedit" data-obj="form" data-item="TSN" value="{{form.TSN}}"></input>
+</view>
+<view class="cu-form-group">
+<view class="title">名称</view>
+<input placeholder="请输入队伍名称" bindinput="inputedit" data-obj="form" data-item="TName" value="{{form.TName}}"></input>
+</view>
+<view class="cu-form-group">
+<view class="title">队员限制</view>
+<input placeholder="请输入队伍招募人数限制" bindinput="inputedit" data-obj="form" data-item="TMemberLimit" value="{{form.TMemberLimit}}"></input>
+</view>
+<view class="cu-form-group">
+		<view class="title">成员加入需要审核</view>
+		<switch checked="{{tpreviewswith}}" bindchange="TReviewChange"></switch>
+	</view>
+
+<view class="cu-form-group">
+<view class="title">起始时间</view>
+<picker mode="date" value="{{form.TStartTime}}" bindchange="startDateChange">
+<view class="picker">
+{{form.TStartTime}}
+</view>
+</picker>
+</view>
+<view class="cu-form-group">
+<view class="title">结束时间</view>
+<picker mode="date" value="{{form.TEndTime}}" bindchange="endDateChange">
+<view class="picker">
+{{form.TEndTime}}
+</view>
+</picker>
+</view>
+<view class="cu-form-group">
+<view class="title">关键词</view>
+<input placeholder="请输入队伍关键词"  bindinput="inputedit" data-obj="form" data-item="TTag" value="{{form.TTag}}"></input>
+</view>
+<view class="cu-form-group align-start">
+<view class="title">介绍</view>
+<textarea maxlength="-1" placeholder="请输入队伍介绍"  bindinput="inputedit" data-obj="form" data-item="TIntro" value="{{form.TIntro}}"></textarea>
+</view>
+
+<view class="cu-bar bg-white margin-top">
+<view class="action">
+队伍Logo
+</view>
+</view>
+<view class="cu-form-group">
+<view class="grid col-4 grid-square flex-sub">
+<view class="bg-img" wx:for="{{imgList}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+<image src="{{imgList[index]}}" mode="aspectFill"></image>
+<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+<text class="cuIcon-close"></text>
+</view>
+</view>
+<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
+<text class="cuIcon-cameraadd"></text>
+</view>
+</view>
+</view>
+</form>
+
+<view class="padding flex flex-direction">
+<button class="cu-btn bg-green shadow-blur" bindtap="save">保 存</button>
+<button class="cu-btn bg-grey margin-top shadow-blur" bindtap="cancel">取 消</button>
+</view>

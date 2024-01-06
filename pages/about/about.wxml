@@ -1,0 +1,17 @@
+<!--pages/about/about.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">关于</view></cu-custom>
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-center margin-bottom text-lg  text-grey'>关于i自然探索小程序</view>
+  <view class='text-content'>
+    <view>Hi！i自然探索家们~欢迎使用i自然探索小程序！</view>
+    <view class='margin-top-sm'>i自然探索与你一起发现、记录和分享身边的生物多样性之美，重新认识我们生活的环境，做有趣的自然探索家。</view>
+    <view class='margin-top-sm'>探索、发现、记录、分享——explore，discover，record，share</view>
+    <view class='margin-top-sm'>更多功能敬请期待！</view>
+  </view>
+</view>
+
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-content'>
+    <view class="text-green">当前小程序版本： 1.4.0</view>
+  </view>
+</view>

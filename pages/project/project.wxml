@@ -1,0 +1,66 @@
+
+<cu-custom bgColor="bg-gradual-green"><view slot="content">i自然探索</view></cu-custom>
+
+<swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+  <swiper-item wx:for="{{swiperList}}" wx:key="PID" bindtap="navToPdetail" data-pid="{{item.PID}}">
+    <image src="{{item.PPoster}}" mode="aspectFill"></image>
+  </swiper-item>
+</swiper>
+
+<view class="cu-card case article dynamic" bindtap='navToPdetail' wx:for="{{Projects}}" wx:key="PID" wx:for-index="idx" wx:for-item="project" data-pid="{{project.PID}}">
+  <view class="cu-item shadow">
+    <view class="image">
+      <image src="{{project.PPoster}}" mode="widthFix"></image>
+      <view class="cu-tag bg-red">{{project.PType}}</view>
+    </view>
+    <view class="title">
+      <view class="text-cut">{{project.PTitle}}</view>
+    </view>
+    <view class="text-content multi-ellipsis--l3">
+      {{project.PIntro}}
+    </view>
+    <view class="text-gray text-sm project-tags">
+          <text>队伍{{project.PTeamCount}}/{{project.PTeamLimit}}</text>
+          <text>{{project.PStartTime}}至{{project.PEndTime}}观测</text>
+        </view>
+    <view class="cu-list menu-avatar">
+    </view>
+  </view>
+
+</view>
+
+<view class="cu-tabbar-height"></view>
+
+<view wx:if="{{isAdmin}}">
+<view class="project-plus" bindtap="navToPform">
+<text class="cuIcon-roundaddfill text-blue project-plus-icon"></text>
+</view>
+</view>
+
+<view class="cu-bar tabbar bg-white foot">
+  <view class="action" bindtap="NavChange" data-cur="project">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/project{{PageCur=='project'?'-mark':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='project'?'tabbar-icon-text':'text-gray'}}">项目</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="resource">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/resource{{PageCur=='resource'?'-mark':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='resource'?'tabbar-icon-text':'text-gray'}}">发现</view>
+  </view>
+  <view class="action text-gray add-action" bindtap="NavChange" data-cur="observe">
+    <button class="cu-btn cuIcon-camera bg-green shadow"></button>
+    观测
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="search">
+    <view class="cuIcon-search {{PageCur=='search'?'tabbar-icon-text':'text-gray'}}"></view>
+    <view class="{{PageCur=='search'?'tabbar-icon-text':'text-gray'}}">搜索</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="mine">
+    <view class="cuIcon-my {{PageCur=='mine'?'tabbar-icon-text':'text-gray'}}"></view>
+    <view class="{{PageCur=='mine'?'tabbar-icon-text':'text-gray'}}">我的</view>
+  </view>
+  
+</view>

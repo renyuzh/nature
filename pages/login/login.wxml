@@ -1,0 +1,12 @@
+<!--pages/login/login.wxml-->
+<cu-custom isBack="{{true}}" style="color:#fff;"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+<view  class="login-backgroud">
+  <view class="start-banner-logo"><image src="https://explore.iconserve.org.cn/images/3.png"></image></view>
+</view>
+
+<view class='login-form'>
+<input type="text" placeholder="用户名" class="login-input"  bindinput="inputedit" data-obj="form" data-item="username" value="{{form.username}}" />
+<input type="password" placeholder="密码" class="margin-top login-input"  bindinput="inputedit" data-obj="form" data-item="password" value="{{form.password}}" />
+<button class='cu-btn margin-top lg shadow-blur bg-black login-btn' bindtap="login">登 录</button>
+<view class='text-sm text-black text-bold margin-top' bindtap="navToRegister">新用户注册</view>
+</view>

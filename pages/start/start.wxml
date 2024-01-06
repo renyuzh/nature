@@ -1,0 +1,6 @@
+<view class="container">
+  <image src="/images/1.png" mode="aspectFit"></image>
+<view class="start-bottom-text">
+<view><text class="start-bottom-text-ver">V1.4.0</text></view>
+</view>
+</view>

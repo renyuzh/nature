@@ -1,0 +1,28 @@
+<!--pages/mycomment/mycomment.wxml-->
+<cu-custom bgColor="bg-red" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="cu-bar bg-red solid-bottom">
+  <view class='action'>
+    <text class='cuIcon-titles text-white'></text> 我的评论
+    <text class="margin-left text-white text-sm">{{mycomments.length}}</text>
+  </view>
+</view>
+
+<view class="cu-card no-card dynamic margin-top-sm" wx:key="CID" wx:for="{{mycomments}}" wx:for-item="mycomment">
+  <view class="cu-item shadow">
+    <view class="text-content">
+      <view class="bg-grey padding-sm radius margin-top-sm  text-sm" bindtap="navToOdetail" data-oid="{{mycomment.HostID}}">
+        <view class="flex">
+          {{mycomment.CContent}}
+        </view>
+      </view>
+      <view class="margin-top-sm flex justify-between">
+        <view class="text-gray text-df">{{mycomment.CreateTime}}</view>
+        <view>
+          <text class="cuIcon-delete text-red text-bold" bindtap="deleteComment" data-cid="{{mycomment.CID}}" data-uid="{{mycomment.UID}}"></text>
+        </view>
+      </view>
+    </view>
+    
+  </view>
+</view>

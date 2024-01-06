@@ -1,0 +1,21 @@
+/* pages/rank/rank.wxss */
+page{
+  background-color: #D9CD90;
+}
+.rank-title{
+  text-align: center;
+  font-weight: bold;
+  color: #3F4D6B;
+  font-size: 18px;
+  margin-bottom: 10rpx;
+  margin-top: 20rpx;
+}
+.rank-card-one{
+  height: 150rpx;
+  border-radius: 75rpx;
+}
+.rank-card{
+  height: 100rpx;
+  border-radius: 50rpx;
+  color: #3F4D6B;
+}

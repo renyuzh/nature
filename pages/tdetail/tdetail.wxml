@@ -1,0 +1,119 @@
+<!--pages/tdetail/tdetail.wxml-->
+<cu-custom bgColor="bg-gradual-orange" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class='cu-bar bg-white solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-orange'></text> <text class='text-orange'>队伍介绍</text>
+</view>
+<view class='action' wx:if="{{team.TIsApprove == 'No'}}">
+<view class='cu-tag round bg-grey shadow'>未批准</view>
+</view>
+</view>
+  
+  <view class="cu-card case dynamic article no-card">
+  <view class='cu-item shadow'>
+  <view class='cu-list menu-avatar'>
+  <view class='cu-item'>
+  <view class="cu-avatar lg radius" style="background-image:url({{team.TPoster}});"></view>
+  <view class='content flex-sub'><view class='title'>{{team.TName}}</view></view>
+  </view>
+  </view>
+  <view class='content'>
+  <view class='text-grey'><text class='cuIcon-time'></text> 招募时间：{{team.TStartTime}}至{{team.TEndTime}}</view>
+  </view>
+  <view class='content margin-top margin-bottom' wx:if="{{team.TIntro.length>0}}">{{team.TIntro}}</view>
+  <view class="text-content" wx:if="{{ttags[0].length>0}}">
+    <view class='cu-tag radius bg-orange'wx:for="{{ttags}}">{{item}}</view>
+  </view>
+  
+  </view>
+  </view>
+
+
+
+<view class="cu-bar bg-white solid-bottom margin-top">
+<view class='action'>
+<text class='cuIcon-title text-orange'></text> <text class='text-orange'>队伍成员</text>
+<text class='margin-left text-grey text-sm'>{{members.length}} 人</text>
+</view>
+<view class='action' wx:if="{{team.TIsApprove == 'Yes' && team.TStatus != '结束' && canJoinTeam}}">
+<button class='cu-btn bg-orange shadow' bindtap="joinTeam">我要加入</button>
+</view>
+</view>
+
+<view class='cu-list menu sm-border'>
+
+<view class='cu-item' wx:for="{{members}}" wx:for-index="midx" wx:for-item="member">
+<view class='content' bindtap='navToMemberOList' data-uid="{{member.UID}}" data-tid="{{member.TID}}" data-pid="{{member.PID}}">
+<image src='{{member.UAvatar}}' class='cu-avatar round'>
+</image>
+<text class='text-black'>{{member.UserName}}</text>
+<text class="text-orange text-sm" wx:if="{{member.PTMIsApprove == 'Yes'}}"> {{member.PTMRole}}</text>
+<text class="text-grey text-sm" wx:if="{{member.PTMIsApprove == 'No'}}"> 待审核</text>
+</view>
+<view class='action' wx:if="{{member.PTMIsApprove == 'Yes'}}">
+<text class='text-grey text-sm'>{{member.PTMObserveCount}} 观测 </text>
+</view>
+<view class='action' wx:if="{{member.PTMIsApprove == 'No' && (isAdmin || isLeader)}}">
+<button class='cu-btn lines-red sm' bindtap="denyMember" data-dptmid="{{member.PTMID}}">拒绝</button>
+<button class='cu-btn lines-green sm margin-left' bindtap="approveMember" data-aptmid="{{member.PTMID}}">批准</button>
+</view>
+
+</view>
+
+</view>
+
+
+<view class='cu-bar bg-white solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-orange'></text> <text class='text-orange'>数据资源</text>
+</view>
+<view class='action' wx:if="{{team.TIsApprove == 'Yes' && team.TStatus != '结束' && canCreateObserve}}">
+<button class='cu-btn bg-blue shadow' bindtap="navToTObserve">新观测</button>
+</view>
+</view>
+
+<view class='cu-list grid col-3 no-border margin-bottom'>
+<view class='cu-item' bindtap="navToRank">
+<view class='cuIcon-upstagefill text-cyan'></view>
+<text>排行榜</text>
+</view>
+<view class='cu-item' bindtap="navToOList">
+<view class='cuIcon-discoverfill text-purple'></view>
+<text>观测记录</text>
+</view>
+<view class='cu-item' bindtap="navToPhoto">
+<view class='cuIcon-picfill text-yellow'></view>
+<text>图像流</text>
+</view>
+</view>
+
+
+<view class='cu-bar bg-white solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-orange'></text> <text class='text-orange'>统计信息</text>
+</view>
+<view class='action'>
+<text class="text-sm text-grey">数据更新于 {{statisUpdateTime}}</text>
+</view>
+</view>
+
+<view class='bg-white padding grid col-4 text-center'>
+<view>
+<view><text class='text-xxl text-bold text-orange'>{{team.TObserveCount}}</text></view>
+<view><text>观测</text></view>
+</view>
+<view>
+<view><text class='text-xxl text-bold  text-green'>{{team.TSpeciesCount}}</text></view>
+<view><text>物种</text></view>
+</view>
+<view>
+<view><text class='text-xxl text-bold  text-brown'>{{team.TIdentCount}}</text></view>
+<view><text>鉴定</text></view>
+</view>
+<view>
+<view><text class='text-xxl text-bold text-yellow'>{{team.TImageCount}}</text></view>
+<view><text>图像</text></view>
+</view>
+</view>
+

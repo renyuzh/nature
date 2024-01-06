@@ -1,0 +1,19 @@
+<!--pages/myteam/myteam.wxml-->
+<cu-custom bgColor="bg-gradual-orange" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class='cu-bar bg-orange solid-bottom'>
+<view class='action'>
+<text class='cuIcon-titles text-white'></text> 我的队伍
+</view>
+</view>
+
+<view class='cu-list menu'>
+
+  <view class='cu-item arrow solid-bottom' bindtap="navToTdetail" wx:for="{{myteams}}" wx:key="TID" wx:for-item="myteam" data-tid="{{myteam.TID}}">
+    <view class='content'>
+    <text class='text-orange'>{{myteam.TSN}} </text> 
+    <text class="text-bold">{{myteam.TName}}</text>
+    </view>
+  </view>
+
+</view>

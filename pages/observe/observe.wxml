@@ -1,0 +1,317 @@
+<!--pages/observe/observe.wxml-->
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">i自然探索</view>
+</cu-custom>
+
+<scroll-view scroll-x class='nav bg-blue' style="position:fixed;top:{{globalcusbarheight}}px;width:100%;z-index:1000;">
+  <view class='flex text-center'>
+    <view class="cu-item flex-sub {{index==TabCur?'text-white cur shadow':''}}" wx:for="{{tabitems}}" wx:key="index" bindtap="tabSelect" data-id="{{index}}">
+      {{item}}
+    </view>
+  </view>
+</scroll-view>
+
+<!--<view wx:if="{{TabCur==0}}">
+  <map 
+  id="markMap" 
+  setting="{{mapSetting}}" 
+  bindregionchange="regionChange" 
+  bindcallouttap="showObserveDetail"
+  >
+    <view slot="callout">
+      <block wx:for="{{customCalloutDatas}}" wx:key="OID">
+        <cover-view class="customCallout" marker-id="{{index}}">
+          <cover-image class="customCalloutIcon" src="{{item.OPoster}}"></cover-image>
+          <cover-view></cover-view>
+        </cover-view>
+      </block>
+    </view>
+  </map>
+</view>-->
+
+<view wx:if="{{TabCur==0}}" style="margin-top:110rpx;">
+
+  <view class="cu-card article no-card solid-bottom margin-top-sm solic-top" bindtap="navToOdetail" wx:for="{{observes.data}}" wx:key="OID" wx:for-item="observe" data-oid="{{observe.OID}}">
+    <view class="cu-item shadow">
+      
+      <view class="title">
+        <view class="text-cut">
+        
+          <block wx:if="{{observe.OSTaxaLevel=='Species' || observe.OSTaxaLevel==''}}">
+            {{observe.OSNameZh}} {{observe.OSNameLa}}
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Genus'}}">
+            {{observe.OSGenusZh}} {{observe.OSGenusLa}}
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Family'}}">
+            {{observe.OSFamilyZh}} {{observe.OSFamilyLa}}
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Order'}}">
+            {{observe.OSOrderZh}} {{observe.OSOrderLa}}
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Class'}}">
+            {{observe.OSClassZh}} {{observe.OSClassLa}}
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Phylum'}}">
+            {{observe.OSPhylumZh}} {{observe.OSPhylumLa}}
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Kingdom'}}">
+            {{observe.OSKingdomZh}} {{observe.OSKingdomLa}}
+          </block>
+          <text class="text-sm text-grey"> {{observe.OSRemark}} {{observe.ORemark}}</text>
+          <block wx:if="{{observe.OSTaxaLevel =='' && observe.OSNameZh.length<1 && observe.OSNameLa.length<1 && observe.OSRemark.length<1 && observe.ORemark<1}}"><text class="text-red">未知</text></block>
+        </view>
+      </view>
+    
+
+      <view class="content">
+        <image wx:if="{{observe.OPoster != ''}}" src="{{observe.OPoster}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class="text-content text-cut">
+            <view class="text-sm"><text class="cuIcon-myfill"></text> <text class="text-black"> {{observe.UserName}}</text></view>
+            <view class="text-sm" wx:if="{{false}}"><text class="cuIcon-locationfill"></text> <text class="text-black"> {{observe.OLocation}}</text></view>
+            <view class="text-sm"><text class="cuIcon-timefill"></text> <text class="text-black"> {{observe.ObserveDatetime}}</text></view>
+          </view>
+          <view class="text-grey text-sm">图像 {{observe.OImageCount}} 鉴定 {{observe.OIdentCount}} 评论 {{observe.OCommentCount}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view wx:if="{{TabCur==1}}" style="margin-top:110rpx;">
+
+  <view class="cu-card dynamic no-card solid-bottom margin-top-sm solic-top" bindtap="navToOdetail" wx:for="{{idents.data}}" wx:key="IID" wx:for-item="ident" data-oid="{{ident.OID}}">
+    <view class="cu-item shadow padding-top-lg">
+      <view class="text-cut ident-title">
+          <view class="cu-tag bg-brown shadow sm round" wx:if="{{ident.USysRole=='Expert' && ident.ITaxaLevel!=''}}">专家鉴定</view>
+          <block wx:if="{{ident.ITaxaLevel=='Species'}}">
+            {{ident.ISNameZh}} {{ident.ISNameLa}}
+          </block>
+          <block wx:if="{{ident.ITaxaLevel=='Genus'}}">
+            {{ident.ISGenusZh}} {{ident.ISGenusLa}}
+          </block>
+          <block wx:if="{{ident.ITaxaLevel=='Family'}}">
+            {{ident.ISFamilyZh}} {{ident.ISFamilyLa}}
+          </block>
+          <block wx:if="{{ident.ITaxaLevel=='Order'}}">
+            {{ident.ISOrderZh}} {{ident.ISOrderLa}}
+          </block>
+          <block wx:if="{{ident.ITaxaLevel=='Class'}}">
+            {{ident.ISClassZh}} {{ident.ISClassLa}}
+          </block>
+          <block wx:if="{{ident.ITaxaLevel=='Phylum'}}">
+            {{ident.ISPhylumZh}} {{ident.ISPhylumLa}}
+          </block>
+          <block wx:if="{{ident.ITaxaLevel=='Kingdom'}}">
+            {{ident.ISKingdomZh}} {{ident.ISKingdomLa}}
+          </block>
+          <text class="text-sm text-grey"> {{ident.IRemark}}</text>
+        </view>
+
+        <view class="grid flex-sub padding-top-sm padding-lr-sm col-1">
+      <view class="bg-img only-img" style="background-image:url({{ident.HostPoster}});">
+      </view>
+    </view>
+
+      <view class="cu-list menu-avatar">
+        <view class="cu-item">
+          <view class="cu-avatar round lg" style="background-image:url({{ident.UAvatar}});"></view>
+          <view class="content flex-sub">
+            <view>{{ident.UserName}}</view>
+            <view class="text-gray text-sm flex justify-between">
+              {{ident.CreateTime}}
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+
+</view>
+
+<!--<view wx:if="{{TabCur==3}}" style="margin-top:110rpx;">
+
+<view class="cu-card article no-card solid-bottom margin-top-sm solic-top" bindtap="navToOdetail" wx:for="{{experts.data}}" wx:key="OID" wx:for-item="expert" data-oid="{{expert.OID}}">
+  <view class="cu-item shadow">
+    <view class="title">
+      <view class="text-cut"><view class="cu-tag bg-brown shadow sm round" wx:if="{{observe.OISysRole=='Expert' && (observe.OSNameLa!='' || observe.OSRemark!='')}}">专家鉴定</view> <block wx:if="{{expert.OSTaxaLevel=='Species' || expert.OSTaxaLevel==''}}">
+ {{expert.OSNameZh}} {{expert.OSNameLa}} 
+</block>
+<block wx:if="{{expert.OSTaxaLevel=='Genus'}}">
+ {{expert.OSGenusZh}} {{expert.OSGenusLa}}
+</block>
+<block wx:if="{{expert.OSTaxaLevel=='Family'}}">
+ {{expert.OSFamilyZh}} {{expert.OSFamilyLa}}
+</block>
+<block wx:if="{{expert.OSTaxaLevel=='Order'}}">
+ {{expert.OSOrderZh}} {{expert.OSOrderLa}}
+</block>
+<block wx:if="{{expert.OSTaxaLevel=='Class'}}">
+ {{expert.OSClassZh}} {{expert.OSClassLa}}
+</block>
+<block wx:if="{{expert.OSTaxaLevel=='Phylum'}}">
+ {{expert.OSPhylumZh}} {{expert.OSPhylumLa}}
+</block>
+<block wx:if="{{expert.OSTaxaLevel=='Kingdom'}}">
+ {{expert.OSKingdomZh}} {{expert.OSKingdomLa}}
+</block>
+<text class="text-sm text-grey"> {{expert.OSRemark}} {{expert.ORemark}}</text> 
+      <block wx:if="{{expert.OSTaxaLevel =='' && expert.OSNameZh.length<1 && expert.OSNameLa.length<1 && expert.OSRemark.length<1 && expert.ORemark<1}}"><text class="text-red">未知</text></block>
+      </view>
+    </view>
+    <view class="content">
+      <image wx:if="{{expert.OPoster != ''}}" src="{{expert.OPoster}}" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content">
+        <view class="text-sm"><text class="cuIcon-myfill"></text> <text class="text-black">{{expert.UserName}}</text></view>
+        <view class="text-sm"><text class="cuIcon-locationfill"></text> <text class="text-black">{{expert.OLocation}}</text></view>
+        <view class="text-sm"><text class="cuIcon-timefill"></text> <text class="text-black">{{expert.ObserveDatetime}}</text></view>
+        </view>
+        <view><view class="text-grey text-sm">图像 {{expert.OImageCount}} 鉴定 {{expert.OIdentCount}} 评论 {{expert.OCommentCount}}</view></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+</view>-->
+
+<view class="observe-filter bg-blue shadow-blur flex justify-center align-center text-center" data-target="filterModal" bindtap="showFilterPanel">
+  <view class="cuIcon-filter text-white observe-filter-icon"></view>
+</view>
+
+
+
+<view class="cu-bar tabbar bg-white foot">
+  <view class="action" bindtap="NavChange" data-cur="project">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/project{{PageCur=='project'?'-mark':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='project'?'tabbar-icon-text':'text-gray'}}">项目</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="resource">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/resource{{PageCur=='resource'?'-mark':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='resource'?'tabbar-icon-text':'text-gray'}}">发现</view>
+  </view>
+  <view class="action text-gray add-action" bindtap="NavChange" data-cur="observe">
+    <button class="cu-btn cuIcon-camera bg-green shadow"></button>
+    观测
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="search">
+    <view class="cuIcon-search {{PageCur=='search'?'tabbar-icon-text':'text-gray'}}"></view>
+    <view class="{{PageCur=='search'?'tabbar-icon-text':'text-gray'}}">搜索</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="mine">
+    <view class="cuIcon-my {{PageCur=='mine'?'tabbar-icon-text':'text-gray'}}"></view>
+    <view class="{{PageCur=='mine'?'tabbar-icon-text':'text-gray'}}">我的</view>
+  </view>
+
+</view>
+
+<!--<view class="cu-modal bottom-modal {{modalName=='MObserveModal'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog">
+    <view class="cu-card article no-card" bindtap="navToOdetail" data-oid="{{mObserveInfo.OID}}">
+            <view class="cu-item shadow">
+              <view class="title">
+                <view class="text-cut">
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel=='Species' || mObserveInfo.OSTaxaLevel==''}}">
+                  {{mObserveInfo.OSNameZh}} {{mObserveInfo.OSNameLa}} 
+                  </block>
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel=='Genus'}}">
+                  {{mObserveInfo.OSGenusZh}} {{mObserveInfo.OSGenusLa}}
+                  </block>
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel=='Family'}}">
+                  {{mObserveInfo.OSFamilyZh}} {{mObserveInfo.OSFamilyLa}}
+                  </block>
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel=='Order'}}">
+                  {{mObserveInfo.OSOrderZh}} {{mObserveInfo.OSOrderLa}}
+                  </block>
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel=='Class'}}">
+                  {{mObserveInfo.OSClassZh}} {{mObserveInfo.OSClassLa}}
+                  </block>
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel=='Phylum'}}">
+                  {{mObserveInfo.OSPhylumZh}} {{mObserveInfo.OSPhylumLa}}
+                  </block>
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel=='Kingdom'}}">
+                  {{mObserveInfo.OSKingdomZh}} {{mObserveInfo.OSKingdomLa}}
+                  </block>
+                  <text class="text-sm text-grey"> {{mObserveInfo.OSRemark}} {{mObserveInfo.ORemark}}</text> 
+                  <block wx:if="{{mObserveInfo.OSTaxaLevel =='' && mObserveInfo.OSNameZh.length<1 && mObserveInfo.OSNameLa.length<1 && mObserveInfo.OSRemark.length<1 && mObserveInfo.ORemark<1}}">
+                    <text class="text-red">未知</text>
+                  </block>
+                </view>
+              </view>
+
+              <view>
+                <image wx:if="{{mObserveInfo.OPoster != ''}}" src="{{mObserveInfo.OPoster}}" mode="aspectFill"></image>
+                <view class="desc">
+                  <view class="text-content text-cut">
+                  <view class="text-sm"><text class="cuIcon-myfill"></text> <text class="text-black"> {{mObserveInfo.UserName}}</text></view>
+                  <view class="text-sm"><text class="cuIcon-locationfill"></text> <text class="text-black"> {{mObserveInfo.OLocation}}</text></view>
+                  <view class="text-sm"><text class="cuIcon-timefill"></text> <text class="text-black"> {{mObserveInfo.ObserveDatetime}}</text></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+  </view> 
+</view>-->
+
+<view class="cu-modal bottom-modal {{modalName=='filterModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white">
+      <view class="action text-green" bindtap="filterObserve">确定</view>
+      <view class="action text-grey" bindtap="hideModal">取消</view>
+    </view>
+    <view class="padding-xl">
+      <view class="text-left margin-bottom-sm">时间段</view>
+      <view class="cu-form-group">
+        <view class="title">From</view>
+        <picker mode="date" value="{{fromdate}}" bindchange="FromDateChange">
+          <view class="picker">
+            {{fromdate}}
+          </view>
+        </picker>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">To</view>
+        <picker mode="date" value="{{todate}}" bindchange="ToDateChange">
+          <view class="picker">
+            {{todate}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">类群</view>
+      <view class="cu-form-group">
+        <view class="title">选择类群</view>
+        <picker bindchange="TaxaGroupChange" value="{{tgindex}}" range="{{taxagroups}}">
+          <view class="picker">
+            {{taxagroups[tgindex]}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">所属项目</view>
+      <view class="cu-form-group">
+        <view class="title">选择项目</view>
+        <picker bindchange="ProjectGroupChange" value="{{proindex}}" range="{{projectgroups}}" range-key="PTitle">
+          <view class="picker">
+            {{projectgroups[proindex]['PTitle']}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">所属队伍</view>
+      <view class="cu-form-group">
+        <view class="title">选择队伍</view>
+        <picker bindchange="TeamGroupChange" value="{{teamindex}}" range="{{teamgroups}}" range-key="TName">
+          <view class="picker">
+            {{teamgroups[teamindex]['TName']}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+</view>

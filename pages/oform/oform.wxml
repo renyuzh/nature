@@ -1,0 +1,210 @@
+<!--pages/oform/oform.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<block wx:if="{{pageshow}}">
+<view class="cu-bar margin-top shadow bg-white">
+<view class="action sub-title">
+<text class="text-xl text-bold text-blue">新观测</text>
+<text class="bg-blue" style="width:2.5rem"></text>
+</view>
+<view class="action">
+<radio-group bindchange="OTypeChange">
+<radio checked value="现场实录" style="transform:scale(0.7)"></radio><text class="margin-right-sm">现场实录</text>
+<radio value="事后补录" style="transform:scale(0.7)"></radio><text>事后补录</text>
+</radio-group>
+</view>
+</view>
+
+<form>
+
+<view class="cu-bar bg-white margin-top">
+<view class="action">
+观测图像
+</view>
+<view class="action">{{imgList.length}}</view>
+</view>
+<view class="cu-form-group">
+<view class="grid col-4 grid-square flex-sub">
+<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+<image src="{{imgList[index]}}" mode="aspectFill"></image>
+<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+<text class="cuIcon-close"></text>
+</view>
+</view>
+<view class="solids" bindtap="ChooseImage">
+<text class="cuIcon-cameraadd"></text>
+</view>
+</view>
+</view>
+
+<view class='cu-form-group' hidden>
+<view class="title">标题</view>
+<input placeholder="请输入观测标题" data-obj="form" data-item="OTitle" value="{{form.OTitle}}" bindinput="editinput"></input>
+</view>
+
+
+<view class='cu-form-group margin-top'>
+<view class="title">物种名</view>
+<block wx:if="{{spIdentInfo.SPMarkNameZh.length > 0 || spIdentInfo.SPMarkNameLa.length > 0}}"><text class="text-gray" bindtap="showSpeciesModal">{{spIdentInfo.SPMarkNameZh + ' ' +spIdentInfo.SPMarkNameLa}}</text></block>
+<block wx:if="{{spIdentInfo.SPMarkNameZh.length <= 0 && spIdentInfo.SPMarkNameLa.length <= 0}}"><text class="text-gray" bindtap="showSpeciesModal">物种库搜索或手动填写</text></block>
+</view>
+
+<view class="cu-form-group">
+<view class="title">所属类群</view>
+<picker bindchange="TaxaGroupChange" value="{{tgindex}}" range="{{taxagroups}}">
+  <view class="picker">
+    {{taxagroups[tgindex]}}
+  </view>
+</picker>
+</view>
+<view class="cu-form-group">
+<view class="title">是否野生</view>
+<picker bindchange="IsWildChange" value="{{iwindex}}" range="{{WildSelections}}">
+  <view class="picker">
+    {{WildSelections[iwindex]}}
+  </view>
+</picker>
+</view>
+<view class="cu-form-group">
+<view class="title">共享范围</view>
+<picker bindchange="ShareLevelChange" value="{{slindex}}" range="{{sharelevels}}">
+  <view class="picker">
+    {{sharelevels[slindex]}}
+  </view>
+</picker>
+</view>
+
+<view class="cu-form-group margin-top">
+<view class="title">观测地点</view>
+<text class="text-blue text-xl text-bold cuIcon-locationfill icon-max" bindtap="reLocate"></text>
+<input placeholder="请输入观测地点，包含省市区县等详细地址" data-obj="form" data-item="OLocation" value="{{form.OLocation}}" bindinput="editinput"></input>
+</view>
+<view class='cu-form-group'>
+<view>
+<text class='text-grey'>经度</text> {{form.OLongitude}} 
+<text class='text-grey'>纬度</text> {{form.OLatitude}} 
+<text class='text-grey'>海拔</text> {{form.OAltitude}} 
+</view>
+</view>
+
+<view class="cu-form-group">
+<view class="title">观测时间</view>
+<input placeholder="请输入观测时间" data-obj="form" data-item="ObserveDatetime" value="{{form.ObserveDatetime}}" bindinput="editinput"></input>
+</view>
+
+<view class="cu-form-group margin-top align-start">
+<view class="title">笔记</view>
+<textarea maxlength="-1" data-obj="form" data-item="ORemark" value="{{form.ORemark}}" bindinput="editinput"></textarea>
+</view>
+
+<view class="cu-form-group">
+<view class="title">所属项目队伍</view>
+<picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{multiIndex}}" range="{{multiProTeams}}" range-key="title">
+  <view class="picker">
+    {{multiProTeams[0][multiIndex[0]]['PTitle']}} | {{multiProTeams[1][multiIndex[1]]['TName']}}
+  </view>
+</picker>
+</view>
+
+<view class="mb-cbar"></view>
+
+</form>
+
+</block>
+
+<view class="cu-bar foot bg-white tabbar border">
+<view class="baraction">
+<view class="bg-grey submit barbtn" bindtap="cancelO">取 消</view>
+</view>
+<block wx:if="{{pageshow}}">
+<view class="baraction">
+<view class="bg-green submit barbtn" bindtap="saveO">保 存</view>
+</view>
+</block>
+</view>
+
+<view class="cu-modal {{speciesModal?'show':''}} spidentmodal">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">物种名</view>
+      <view class="action" bindtap="hideSpeciesModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">分类阶元</view>
+      <picker bindchange="TaxaLevelChange" value="{{tlindex}}" range="{{taxalevels}}" range-key="title">
+        <view class="picker">
+          {{taxalevels[tlindex].title}}
+        </view>
+      </picker>
+    </view>
+
+  <view class="cu-capsule radius bg-white margin-top-sm margin-bottom-sm">
+      <view class="cu-tag {{(identModalBlock == 'speciesTag')?'bg-green':'line-green'}}" data-itag="speciesTag" bindtap="switchIdentTag">
+				物种库搜索
+			</view>
+			<view class="cu-tag {{(identModalBlock == 'handTag')?'bg-green':'line-green'}}" data-itag="handTag" bindtap="switchIdentTag">
+				手动填写
+			</view>
+    </view>
+
+   
+<block wx:if="{{identModalBlock == 'handTag'}}">
+<view class='cu-form-group'>
+<view class="title">拉丁名</view>
+<input placeholder="手动录入" data-obj="spIdentInfo" data-item="SPMarkNameLa" value="{{spIdentInfo.SPMarkNameLa}}" bindinput="editinput"></input>
+</view>
+<view class='cu-form-group'>
+<view class="title">中文名</view>
+<input placeholder="手动录入" data-obj="spIdentInfo" data-item="SPMarkNameZh" value="{{spIdentInfo.SPMarkNameZh}}" bindinput="editinput"></input>
+</view>
+<view class="padding flex flex-direction">
+  <button class="cu-btn bg-red margin-tb-sm lg" bindtap="saveHandIdent">提 交 鉴 定</button>
+</view>
+</block>
+
+
+<block wx:if="{{identModalBlock == 'speciesTag'}}">
+    <view class='box'>
+      <view class="cu-bar search bg-white">
+        <view class="search-form round">
+          <text class="cuIcon-search"></text>
+          <input type="text" placeholder="搜索物种学名或中文名" confirm-type="search" bindconfirm="searchSpecies"></input>
+        </view>
+      </view>
+    </view>
+
+    <view class="padding-sm SPLists">
+      <view class="cu-list menu">
+        <view class="cu-item" wx:for="{{speciesList}}" wx:for-index="idx" wx:for-item="species">
+          <view class="content" bindtap="selectSp" data-spi="{{idx}}">
+            <block wx:if="{{form.OSTaxaLevel == 'Species'}}">
+              <text>{{species.species_c}} </text><text class="text-grey">{{species.canonical_name}} </text><text>{{species.kingdom_c}}</text>
+            </block>
+            <block wx:if="{{form.OSTaxaLevel == 'Genus'}}">
+              <text>{{species.genus_c}} </text><text class="text-grey">{{species.genus}} </text><text>{{species.kingdom_c}}</text>
+            </block>
+            <block wx:if="{{form.OSTaxaLevel == 'Family'}}">
+              <text>{{species.family_c}} </text><text class="text-grey">{{species.family}} </text><text>{{species.kingdom_c}}</text>
+            </block>
+            <block wx:if="{{form.OSTaxaLevel == 'Order'}}">
+              <text>{{species.order_c}} </text><text class="text-grey">{{species.order}} </text><text>{{species.kingdom_c}}</text>
+            </block>
+            <block wx:if="{{form.OSTaxaLevel == 'Class'}}">
+              <text>{{species.class_c}} </text><text class="text-grey">{{species.class}} </text><text>{{species.kingdom_c}}</text>
+            </block>
+            <block wx:if="{{form.OSTaxaLevel == 'Phylum'}}">
+              <text>{{species.phylum_c}} </text><text class="text-grey">{{species.phylum}} </text><text>{{species.kingdom_c}}</text>
+            </block>
+            <block wx:if="{{form.OSTaxaLevel == 'Kingdom'}}">
+              <text>{{species.kingdom_c}} </text><text class="text-grey">{{species.kingdom}} </text>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  </view>
+</view>

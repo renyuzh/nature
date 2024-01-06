@@ -1,0 +1,31 @@
+/* pages/start/start.wxss */
+page{
+  height: 100%;
+  background-color:#8ABB91;
+  /*background-color: #3F4D6B;*/
+}
+.container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.container image{
+  width: 100%;
+  height: 100%;
+}
+.start-bottom-text{
+  position: fixed;
+  bottom: 30rpx;
+  color:#fff;
+}
+.start-bottom-text-ver{
+  font-size: 24rpx;
+  display: flex;
+  justify-content: center;
+}
+.start-bottom-text-name{
+  font-size: 32rpx;
+}

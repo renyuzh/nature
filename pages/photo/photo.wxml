@@ -1,0 +1,17 @@
+<!--pages/photo/photo.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="cu-timeline" wx:for="{{photos}}" wx:for-item="photo" wx:key="NPID">
+  <view class="cu-time">{{photo.CreateTime}}</view>
+  <view class="cu-item text-blue">
+    <view class="content">
+     <view class="radius">
+        <view class="cu-tag bg-blue margin-top-sm" wx:if="{{photo.UserName !=''}}"><text class="cuIcon-myfill"></text> {{photo.UserName}}</view>
+        <view class="cu-tag line-blue margin-top-sm" wx:if="{{photo.NPLocation !=''}}"><text class="cuIcon-locationfill"></text> {{photo.NPLocation}}</view>
+        <view class="cu-tag bg-blue margin-top-sm" wx:if="{{photo.NPSNameZh !='' && photo.NPSNameLa !=''}}">{{photo.NPSNameZh}} {{photo.NPSNameLa}}</view>
+      </view>
+      <view class="margin-top-sm" data-currentphoto="{{photo.NPOriginPath}}" bindtap="showOriginPhoto"><image src="{{photo.NPNormalPath}}" mode="aspectFill" class="radius"></image></view>
+      <view class="margin-top-sm" data-curphotohostid="{{photo.HostID}}" bindtap="navToOdetail" class="text-right text-sm">查看观测记录详情 <text class="cuIcon-right"></text></view>
+    </view>
+  </view>
+</view>

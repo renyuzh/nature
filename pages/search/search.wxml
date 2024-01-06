@@ -1,0 +1,153 @@
+<!--pages/search/search.wxml-->
+<cu-custom bgColor="bg-gradual-blue"><view slot="content">i自然探索</view></cu-custom>
+
+<view class='box'>
+<view class="cu-bar search bg-white">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" value="{{searchVal}}" bindinput="editInput" placeholder="搜索观测、项目、队伍" confirm-type="search"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-blue shadow-blur round" bindtap="search">搜索</button>
+  </view>
+</view>
+</view>
+
+<block wx:if="{{observes.length > 0}}">
+<view class='cu-bar bg-blue solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-white'></text> 自然观测
+</view>
+</view>
+
+<view class='cu-list menu-avatar'>
+
+<view class='cu-item cur' wx:for="{{observes}}" wx:key='OID' wx:for-item="observe" bindtap="navToOdetail" data-oid="{{observe.OID}}">
+<view class="cu-avatar radius lg" style="background-image:url({{observe.OPoster}});">
+</view>
+<view class='content'>
+<view>
+<text class="text-cut">{{observe.OSN}} {{observe.OTitle}} {{observe.OSNameZh}} {{observe.OSNameLa}}</text>
+</view>
+<view class='text-gray text-sm flex'>
+<text class='text-cut'><text class="cuIcon-location text-blue margin-right-xs"></text>{{observe.OLocation}}</text>
+</view>
+</view>
+</view>
+
+</view>
+</block>
+
+<block wx:if="{{photos.length>0}}">
+<view class='cu-bar bg-yellow solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-white'></text> <text class='text-white'>观测图像</text>
+</view>
+</view>
+
+<view class="bg-white padding">
+  <view class="grid col-4 grid-square">
+    <view class="bg-img" wx:for="{{photos}}" wx:key="NPID" wx:for-item="photo" data-pidx="{{index}}" bindtap="showBigPhoto" style="background-image:url({{photo.NPNormalPath}});"></view>
+  </view>
+</view>
+</block>
+
+<block wx:if="{{users.length>0}}">
+<view class='cu-bar bg-cyan solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-white'></text> 自然探索家
+</view>
+</view>
+
+<view class='cu-list menu sm-border'>
+
+<view class='cu-item' wx:for="{{users}}" wx:key='UID' wx:for-item="user">
+<view class='content' bindtap='navToOList' data-uid="{{user.UID}}">
+<image src='{{user.UAvatar}}' class='cu-avatar round'>
+</image>
+<text class='text-black'>{{user.UserName}}</text>
+</view>
+</view>
+
+</view>
+</block>
+
+<block wx:if="{{projects.length>0}}">
+<view class='cu-bar bg-green solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-white'></text> 项目活动
+</view>
+</view>
+
+<view class='cu-list menu-avatar'>
+
+<view class='cu-item cur' bindtap="navToPdetail" wx:for="{{projects}}" wx:key='PID' wx:for-item="project" data-pid="{{project.PID}}">
+<view class="cu-avatar radius lg" style="background-image:url({{project.PPoster}});">
+</view>
+<view class='content'>
+<view>
+<text class="text-cut">{{project.PTitle}}</text>
+</view>
+<view class='text-gray text-sm flex'>
+<text class='text-cut'><text class="cuIcon-calendar text-green margin-right-xs"></text>{{project.PStartTime}}至{{project.PEndTime}}</text>
+</view>
+</view>
+</view>
+
+</view>
+</block>
+
+<block wx:if="{{teams.length>0}}">
+<view class='cu-bar bg-orange solid-bottom margin-top'>
+<view class='action'>
+<text class='cuIcon-title text-white'></text> 参赛队伍
+</view>
+</view>
+
+<view class='cu-list menu-avatar margin-bottom'>
+
+<view class='cu-item cur' bindtap="navToTdetail" wx:for="{{teams}}" wx:key='TID' wx:for-item="team" data-tid="{{team.TID}}">
+<view class="cu-avatar radius lg" style="background-image:url({{team.TPoster}});">
+</view>
+<view class='content'>
+<view>
+<text class="text-cut">{{team.TName}}</text>
+</view>
+<view class='text-gray text-sm flex'>
+<text class='text-cut'><text class="cuIcon-calendar text-orange margin-right-xs"></text>{{team.TStartTime}}至{{team.TEndTime}}</text>
+</view>
+</view>
+</view>
+
+</view>
+</block>
+
+<view class="cu-tabbar-height"></view>
+
+<view class="cu-bar tabbar bg-white foot">
+  <view class="action" bindtap="NavChange" data-cur="project">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/project{{PageCur=='project'?'-mark':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='project'?'tabbar-icon-text':'text-gray'}}">项目</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="resource">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/resource{{PageCur=='resource'?'-mark':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='resource'?'tabbar-icon-text':'text-gray'}}">发现</view>
+  </view>
+  <view class="action text-gray add-action" bindtap="NavChange" data-cur="observe">
+    <button class="cu-btn cuIcon-camera bg-green shadow"></button>
+    观测
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="search">
+    <view class="cuIcon-search {{PageCur=='search'?'tabbar-icon-text':'text-gray'}}"></view>
+    <view class="{{PageCur=='search'?'tabbar-icon-text':'text-gray'}}">搜索</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="mine">
+    <view class="cuIcon-my {{PageCur=='mine'?'tabbar-icon-text':'text-gray'}}"></view>
+    <view class="{{PageCur=='mine'?'tabbar-icon-text':'text-gray'}}">我的</view>
+  </view>
+  
+</view>

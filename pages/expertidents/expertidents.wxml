@@ -1,0 +1,329 @@
+<cu-custom bgColor="bg-mauve" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">i自然探索</view>
+</cu-custom>
+
+<view class="cu-bar bg-white">
+  <view class='action'>
+    <text class='cuIcon-titles text-mauve'></text> 专家鉴定
+  </view>
+  <view class='action'>
+    <text bindtap="showModal" data-target="filterModal"><text class="cuIcon-filter"></text>筛选</text>
+  </view>
+</view>
+
+<scroll-view scroll-x class="bg-white nav">
+  <view class="flex text-center">
+    <view class="cu-item flex-sub {{index==TabCur?'text-mauve cur':''}}" wx:for="{{tabitems}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+      {{item}}
+    </view>
+  </view>
+</scroll-view>
+
+<view wx:if="{{TabCur==0}}">
+  <view class="cu-card article dynamic no-card margin-top" wx:for="{{unidents.data}}" wx:key="OID" wx:for-item="observe">
+    <view class="cu-item shadow">
+      <view class="title">
+        <view class="text-cut">
+          <view class="cu-tag bg-brown shadow sm round" wx:if="{{observe.OISysRole=='Expert' && observe.OSTaxaLevel!=''}}">专家鉴定</view>
+          <block wx:if="{{observe.OSTaxaLevel=='Species' || observe.OSTaxaLevel==''}}">
+            <text>{{observe.OSNameZh}} {{observe.OSNameLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Genus'}}">
+            <text>{{observe.OSGenusZh}} {{observe.OSGenusLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Family'}}">
+            <text>{{observe.OSFamilyZh}} {{observe.OSFamilyLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Order'}}">
+            <text>{{observe.OSOrderZh}} {{observe.OSOrderLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Class'}}">
+            <text>{{observe.OSClassZh}} {{observe.OSClassLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Phylum'}}">
+            <text>{{observe.OSPhylumZh}} {{observe.OSPhylumLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Kingdom'}}">
+            <text>{{observe.OSKingdomZh}} {{observe.OSKingdomLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel =='' && observe.OSNameZh.length<1 && observe.OSNameLa.length<1 && observe.OSRemark.length<1 && observe.ORemark<1}}"><text class="text-red">未知</text></block>
+        </view>
+      </view>
+      <view class="text-content">
+        {{observe.OSKingdomZh}} {{observe.OSKingdomLa}}
+        {{observe.OSFamilyZh}} {{observe.OSFamilyLa}}
+        {{observe.OSGenusZh}} {{observe.OSGenusLa}}
+        <text class="text-bold">{{observe.OSTaxaGroupZh}} {{observe.OSTaxaGroupLa}}</text>
+      </view>
+      <view class="text-content">
+        <view class="text-sm"><text class="cuIcon-myfill"></text> <text class="text-black"> {{observe.UserName}}</text></view>
+        <view class="text-sm"><text class="cuIcon-locationfill"></text> <text class="text-black"> {{observe.OLocation}}</text></view>
+        <view class="text-sm"><text class="cuIcon-timefill"></text> <text class="text-black"> {{observe.ObserveDatetime}}</text></view>
+      </view>
+      <view class="text-content">
+        <text class="text-sm text-grey">{{observe.OSRemark}}</text>
+      </view>
+      <view class="text-content">
+        <text class="text-sm text-grey">{{observe.OTitle}} {{observe.ORemark}}</text>
+      </view>
+      <view class="grid flex-sub padding-lr col-1" wx:if="{{observe.OPoster != ''}}">
+        <view class="bg-img only-img" style="background-image:url({{observe.OPoster}});" bindtap="getPhoto" data-oid="{{observe.OID}}">
+        </view>
+      </view>
+      <view class="padding flex flex-direction">
+        <button class="cu-btn bg-mauve text-white" bindtap="showModal" data-target="IdentBioDialogModal" data-group="unidents" data-gindex="{{index}}"><text class="cuIcon-write margin-right-sm"></text> 我要鉴定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{TabCur==1}}" class="margin-top-sm">
+  <view class="cu-card article dynamic no-card margin-top" wx:for="{{idents.data}}" wx:key="OID" wx:for-item="observe">
+    <view class="cu-item shadow">
+      <view class="title">
+        <view class="text-cut">
+          <view class="cu-tag bg-brown shadow sm round" wx:if="{{observe.OISysRole=='Expert' && observe.OSTaxaLevel!=''}}">专家鉴定</view>
+          <block wx:if="{{observe.OSTaxaLevel=='Species' || observe.OSTaxaLevel==''}}">
+            <text>{{observe.OSNameZh}} {{observe.OSNameLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Genus'}}">
+            <text>{{observe.OSGenusZh}} {{observe.OSGenusLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Family'}}">
+            <text>{{observe.OSFamilyZh}} {{observe.OSFamilyLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Order'}}">
+            <text>{{observe.OSOrderZh}} {{observe.OSOrderLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Class'}}">
+            <text>{{observe.OSClassZh}} {{observe.OSClassLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Phylum'}}">
+            <text>{{observe.OSPhylumZh}} {{observe.OSPhylumLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel=='Kingdom'}}">
+            <text>{{observe.OSKingdomZh}} {{observe.OSKingdomLa}}</text>
+          </block>
+          <block wx:if="{{observe.OSTaxaLevel =='' && observe.OSNameZh.length<1 && observe.OSNameLa.length<1 && observe.OSRemark.length<1 && observe.ORemark<1}}"><text class="text-red">未知</text></block>
+        </view>
+      </view>
+      <view class="text-content">
+        {{observe.OSKingdomZh}} {{observe.OSKingdomLa}}
+        {{observe.OSFamilyZh}} {{observe.OSFamilyLa}}
+        {{observe.OSGenusZh}} {{observe.OSGenusLa}}
+        <text class="text-bold">{{observe.OSTaxaGroupZh}} {{observe.OSTaxaGroupLa}}</text>
+      </view>
+      <view class="text-content">
+        <view class="text-sm"><text class="cuIcon-myfill"></text> <text class="text-black"> {{observe.UserName}}</text></view>
+        <view class="text-sm"><text class="cuIcon-locationfill"></text> <text class="text-black"> {{observe.OLocation}}</text></view>
+        <view class="text-sm"><text class="cuIcon-timefill"></text> <text class="text-black"> {{observe.ObserveDatetime}}</text></view>
+      </view>
+      <view class="text-content">
+        <text class="text-sm text-grey">{{observe.OSRemark}}</text>
+      </view>
+      <view class="text-content">
+        <text class="text-sm text-grey">{{observe.OTitle}} {{observe.ORemark}}</text>
+      </view>
+      <view class="grid flex-sub padding-lr col-1" wx:if="{{observe.OPoster != ''}}">
+        <view class="bg-img only-img" style="background-image:url({{observe.OPoster}});" bindtap="getPhoto" data-oid="{{observe.OID}}">
+        </view>
+      </view>
+      <view class="padding flex flex-direction">
+        <button class="cu-btn bg-mauve text-white" bindtap="showModal" data-target="IdentBioDialogModal" data-group="idents" data-gindex="{{index}}"><text class="cuIcon-write margin-right-sm"></text> 我要鉴定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+<view class="cu-modal bottom-modal {{modalName=='filterModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white">
+      <view class="action text-green" bindtap="filterObserve">确定</view>
+      <view class="action text-blue" bindtap="hideModal">取消</view>
+    </view>
+    <view class="padding-xl">
+      <view class="text-left margin-bottom-sm">时间段</view>
+      <view class="cu-form-group">
+        <view class="title">From</view>
+        <picker mode="date" value="{{fromdate}}" bindchange="FromDateChange">
+          <view class="picker">
+            {{fromdate}}
+          </view>
+        </picker>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">To</view>
+        <picker mode="date" value="{{todate}}" bindchange="ToDateChange">
+          <view class="picker">
+            {{todate}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">类群</view>
+      <view class="cu-form-group">
+        <view class="title">选择类群</view>
+        <picker bindchange="TaxaGroupChange" value="{{tgindex}}" range="{{taxagroups}}">
+          <view class="picker">
+            {{taxagroups[tgindex]}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">所属项目</view>
+      <view class="cu-form-group">
+        <view class="title">选择项目</view>
+        <picker bindchange="ProjectGroupChange" value="{{proindex}}" range="{{projectgroups}}" range-key="PTitle">
+          <view class="picker">
+            {{projectgroups[proindex]['PTitle']}}
+          </view>
+        </picker>
+      </view>
+      <view class="text-left margin-bottom-sm margin-top">所属队伍</view>
+      <view class="cu-form-group">
+        <view class="title">选择队伍</view>
+        <picker bindchange="TeamGroupChange" value="{{teamindex}}" range="{{teamgroups}}" range-key="TName">
+          <view class="picker">
+            {{teamgroups[teamindex]['TName']}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+<view class="cu-modal {{modalName=='IdentBioDialogModal'?'show':''}} spidentmodal">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">物种鉴定</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xs">
+      <form>
+        <view class="cu-form-group">
+          <view class="title">所属类群</view>
+          <picker bindchange="IdentTaxaGroupChange" value="{{identtgindex}}" range="{{identtaxagroups}}">
+            <view class="picker">
+              {{identtaxagroups[identtgindex]}}
+            </view>
+          </picker>
+        </view>
+        <view class="cu-form-group">
+          <view class="title">分类阶元</view>
+          <picker bindchange="TaxaLevelChange" value="{{tlindex}}" range="{{taxalevels}}" range-key="title">
+            <view class="picker">
+              {{taxalevels[tlindex].title}}
+            </view>
+          </picker>
+        </view>
+
+        <view class="cu-capsule radius bg-white margin-top-sm margin-bottom-sm">
+          <view class="cu-tag {{(identModalBlock == 'speciesTag')?'bg-green':'line-green'}}" data-itag="speciesTag" bindtap="switchIdentTag">
+            物种库搜索
+          </view>
+          <view class="cu-tag {{(identModalBlock == 'handTag')?'bg-green':'line-green'}}" data-itag="handTag" bindtap="switchIdentTag">
+            手动填写
+          </view>
+        </view>
+
+
+        <block wx:if="{{identModalBlock == 'handTag'}}">
+          <view class='cu-form-group'>
+            <view class="title">拉丁名</view>
+            <input placeholder="手动录入" data-obj="spIdentInfo" data-item="SPMarkNameLa" value="{{spIdentInfo.SPMarkNameLa}}" bindinput="editinput"></input>
+          </view>
+          <view class='cu-form-group'>
+            <view class="title">中文名</view>
+            <input placeholder="手动录入" data-obj="spIdentInfo" data-item="SPMarkNameZh" value="{{spIdentInfo.SPMarkNameZh}}" bindinput="editinput"></input>
+          </view>
+
+        </block>
+
+
+        <block wx:if="{{identModalBlock == 'speciesTag'}}">
+
+          <view class="cu-form-group">
+            <view class="title">物种名</view>
+            <input type="text" placeholder="请输入物种拉丁名或中文名" confirm-type="search" bindconfirm="searchSpecies"></input>
+          </view>
+          <view class="margin-top-sm text-left sidentInfo" wx:if="{{ident.ISNameZh!='' || ident.ISNameLa!=''}}">
+            <text class="margin-right-xs text-black">鉴定信息：</text>
+            <text class="margin-right-xs">{{ident.ISNameZh}}</text>
+            <text class="margin-right-xs">{{ident.ISNameLa}}</text>
+            <text class="margin-right-xs">{{ident.ISGenusZh}}</text>
+            <text class="margin-right-xs">{{ident.ISGenusLa}}</text>
+            <text class="margin-right-xs">{{ident.ISFamilyZh}}</text>
+            <text class="margin-right-xs">{{ident.ISFamilyLa}}</text>
+            <text class="margin-right-xs">{{ident.ISOrderZh}}</text>
+            <text class="margin-right-xs">{{ident.ISOrderLa}}</text>
+            <text class="margin-right-xs">{{ident.ISClassZh}}</text>
+            <text class="margin-right-xs">{{ident.ISClassLa}}</text>
+            <text class="margin-right-xs">{{ident.ISPhylumZh}}</text>
+            <text class="margin-right-xs">{{ident.ISPhylumLa}}</text>
+            <text class="margin-right-xs">{{ident.ISKingdomZh}}</text>
+            <text class="margin-right-xs">{{ident.ISKingdomLa}}</text>
+          </view>
+          <view class="padding-sm SPLists" wx:if="{{splistshow}}">
+            <view class="cu-list menu">
+              <view class="cu-item" wx:for="{{speciesList}}" wx:for-index="idx" wx:for-item="species">
+                <view class="content" bindtap="selectSp" data-spi="{{idx}}">
+                  <block wx:if="{{ident.ITaxaLevel == 'Species'}}">
+                    <text class="text-sm">{{species.species_c}} </text>
+                    <text class="text-grey text-sm">{{species.canonical_name}} </text>
+                    <text class="text-gray text-sm">{{species.kingdom_c}}</text>
+                  </block>
+                  <block wx:if="{{ident.ITaxaLevel == 'Genus'}}">
+                    <text class="text-sm">{{species.genus_c}} </text>
+                    <text class="text-grey text-sm">{{species.genus}} </text>
+                    <text class="text-gray text-sm">{{species.kingdom_c}}</text>
+                  </block>
+                  <block wx:if="{{ident.ITaxaLevel == 'Family'}}">
+                    <text class="text-sm">{{species.family_c}} </text>
+                    <text class="text-grey text-sm">{{species.family}} </text>
+                    <text class="text-gray text-sm">{{species.kingdom_c}}</text>
+                  </block>
+                  <block wx:if="{{ident.ITaxaLevel == 'Order'}}">
+                    <text class="text-sm">{{species.order_c}} </text>
+                    <text class="text-grey text-sm">{{species.order}} </text>
+                    <text class="text-gray text-sm">{{species.kingdom_c}}</text>
+                  </block>
+                  <block wx:if="{{ident.ITaxaLevel == 'Class'}}">
+                    <text class="text-sm">{{species.class_c}} </text>
+                    <text class="text-grey text-sm">{{species.class}} </text>
+                    <text class="text-gray text-sm">{{species.kingdom_c}}</text>
+                  </block>
+                  <block wx:if="{{ident.ITaxaLevel == 'Phylum'}}">
+                    <text class="text-sm">{{species.phylum_c}} </text>
+                    <text class="text-grey text-sm">{{species.phylum}} </text>
+                    <text class="text-gray text-sm">{{species.kingdom_c}}</text>
+                  </block>
+                  <block wx:if="{{ident.ITaxaLevel == 'Kingdom'}}">
+                    <text class="text-sm">{{species.kingdom_c}} </text>
+                    <text class="text-grey text-sm">{{species.kingdom}} </text>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <!--<view class="cu-form-group margin-top-sm">
+          <view class="title">备注</view>
+          <input type="text" placeholder="请输入鉴定备注" value="{{ident.IRemark}}" bindinput="identRemarkInput"></input>
+        </view>-->
+      </form>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class="action margin-0 flex-sub solid-left" bindtap="hideModal">取消</view>
+      <view class="action margin-0 flex-sub text-green solid-left" bindtap="identSure">确定</view>
+    </view>
+  </view>
+</view>

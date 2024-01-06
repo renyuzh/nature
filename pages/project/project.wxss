@@ -1,0 +1,28 @@
+/* pages/project/project.wxss */
+page{
+  padding-bottom: 120rpx;
+}
+.program-tags{
+  text-align: right;
+}
+.project-tags text{
+  margin-left: 30rpx;
+}
+.multi-ellipsis--l3{
+  display:-webkit-box;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+}
+.project-plus{
+  position: fixed;
+  bottom: 120rpx;
+  right: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  z-index: 100;
+}
+.project-plus-icon{
+  font-size: 90rpx;
+}

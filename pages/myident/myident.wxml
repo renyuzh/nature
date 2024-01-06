@@ -1,0 +1,29 @@
+<!--pages/myident/myident.wxml-->
+<cu-custom bgColor="bg-brown" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">i自然探索</view></cu-custom>
+
+<view class="cu-bar bg-brown solid-bottom">
+  <view class='action'>
+    <text class='cuIcon-titles text-white'></text> 我的鉴定
+    <text class="margin-left text-white text-sm">{{myidents.length}}</text>
+  </view>
+</view>
+
+<view class="cu-list menu-avatar">
+  <view class="cu-item cur margin-top-sm"  wx:key="IID" wx:for="{{myidents}}" wx:for-item="myident">
+    <view bindtap="navToOdetail" data-oid="{{myident.HostID}}" class="cu-avatar radius lg" style="background-image:url({{myident.HostPoster}});">
+    </view>
+    <view class="content" bindtap="navToOdetail" data-oid="{{myident.HostID}}">
+      <view>
+        <text class="text-cut"><block wx:if="{{myident.ITaxaLevel=='Species' || myident.ITaxaLevel==''}}">{{myident.ISNameZh}} {{myident.ISNameLa}}</block><block wx:if="{{myident.ITaxaLevel=='Genus'}}">{{myident.ISGenusZh}} {{myident.ISGenusLa}}</block><block wx:if="{{myident.ITaxaLevel=='Family'}}">{{myident.ISFamilyZh}} {{myident.ISFamilyLa}}</block><block wx:if="{{myident.ITaxaLevel=='Order'}}">{{myident.ISOrderZh}} {{myident.ISOrderLa}}</block><block wx:if="{{myident.ITaxaLevel=='Class'}}">{{myident.ISClassZh}} {{myident.ISClassLa}}</block><block wx:if="{{myident.ITaxaLevel=='Phylum'}}">{{myident.ISPhylumZh}} {{myident.ISPhylumLa}}</block><block wx:if="{{myident.ITaxaLevel=='Kingdom'}}">{{myident.ISKingdomZh}} {{myident.ISKingdomLa}}</block></text>
+        <text class="margin-left-sm text-brown text-sm">{{myident.ITaxaLevel}}</text>
+      </view>
+      <view class="text-sm flex">
+        <text class="text-black text-bold margin-right-sm">{{myident.ISTaxaGroupZh}}</text>
+        <text class="text-gray text-cut">{{myident.IRemark}}</text>
+      </view>
+    </view>
+    <view class="action">
+      <view class="text-red text-xl text-bold" bindtap="deleteIdent" data-iid="{{myident.IID}}" data-uid="{{myident.UID}}"><text class="cuIcon-delete"></text></view>
+    </view>
+  </view>
+  </view>

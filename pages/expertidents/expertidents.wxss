@@ -1,0 +1,14 @@
+.SPLists{
+  z-index: 1024;
+  height: 600rpx;
+  overflow: scroll;
+}
+
+.sidentInfo text{
+  font-size: 20rpx;
+}
+
+.spidentmodal .cu-form-group input{
+  font-size: 26rpx!important;
+  color:#666!important;
+}
